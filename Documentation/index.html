@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Slider Documentation</title>
+    <meta name="description" content="{{meta_description}}" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="assets/styles.css" />
+
+    <script type="text/javascript" src="assets/jquery.min.js"></script>
+    <script>
+    $(function(){
+        $(".hide").css({display:"none"});
+        $(".section").css({ position: "absolute" });
+        $("#mainNav li").each(function(i){
+            $(".icon",this).html(i+1);
+        });
+        $("#content, #header .copy").css({ opacity: 0 });
+        $("#mainNav li a, a.anchor").on("click",function(e){
+            e.preventDefault();
+            trigger($(this));
+        });
+
+
+        $(".controler .next").on("click",function(){
+            var $active = $("#mainNav li.active");
+            var nextPos = $active.index() + 1;
+            var lastPos = $("#mainNav li").last().index();
+
+            if(nextPos <= lastPos){
+                trigger($("#mainNav li a").eq(nextPos));
+            }
+        });
+        $(".controler .prev").on("click",function(){
+            var $active = $("#mainNav li.active");
+            var prevPos = $active.index() - 1;
+            if(prevPos >= 0){
+                trigger($("#mainNav li a").eq(prevPos));
+            }
+        });
+
+        if(window.location.hash) {
+            var hash = window.location.hash.replace("#s","");
+            trigger($("#mainNav li a").eq(hash-1));
+        } else {
+            trigger($("#mainNav li a").first());
+        }
+
+        function trigger(selector){
+            $("#mainNav li").removeClass("active");
+            var selectNumber = $(selector).attr("href").replace("#s","");
+            $("#mainNav li").eq(selectNumber-1).addClass("active");
+            controller();
+            $("#content, #header .copy").fadeOut(150,function(e){
+                window.location.hash = ($(selector).attr("href"));
+                $("#content").show();
+                $("#content, #header .copy").css({ opacity: 0 });
+
+                var $selectedSelector = $($(selector).attr("href"));
+                $("#header .copy").html($(".title",selector).text());
+                console.log(selectNumber);
+                lameTriciderFix(selectNumber);
+
+                $(".section").hide();
+                $selectedSelector.show();
+                $("#content, #header .copy").css({ opacity: 0 }).fadeTo(150,1);
+            });
+        }
+
+        function lameTriciderFix(selectNumber){
+            if($("#s9").css("position") == "absolute"){
+                if(selectNumber == 9){
+                $('#tricider').attr('width','100%').attr('src', $('#tricider').attr('src'));
+            }
+            }
+        }
+        $( window ).resize(function() {
+            lameTriciderFix();
+        });
+
+        function controller(){
+            if($("#mainNav li.active").index() == $("#mainNav li").last().index()){
+                $(".next").addClass("blur");
+                $(".prev").removeClass("blur");
+            }else if( $("#mainNav li.active").index() == $("#mainNav li").first().index() ){
+                $(".prev").addClass("blur");
+                $(".next").removeClass("blur");
+            }else{
+                $(".next").removeClass("blur");
+                $(".prev").removeClass("blur");
+            }
+        }
+    });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="sideBar" class="closeNav">
+            <nav>
+                <div class="logoContain">
+                    SLIDER
+                </div>
+                <ul id="mainNav">
+					<li class="active"><a href="#s1">
+                        <div class="icon">.</div>
+                        <div class="title">Introduction</div>
+                    </a></li>
+					<li><a href="#s2">
+                        <div class="icon">.</div>
+                        <div class="title">Theme version and updates</div>
+                    </a></li>
+					<li><a href="#s3">
+                        <div class="icon">.</div>
+                        <div class="title">Your Theme files</div>
+                    </a></li>
+			    	<li><a href="#s4">
+                        <div class="icon">.</div>
+                            <div class="title">Quick Install</div>
+                    </a></li>
+					<li><a href="#s5">
+                        <div class="icon">.</div>
+                        <div class="title">Personalise your theme</div>
+                    </a></li>
+					<li><a href="#s6">
+                        <div class="icon">.</div>
+                        <div class="title">Writing posts</div>
+                    </a></li>
+					<li><a href="#s7">
+                        <div class="icon">.</div>
+                        <div class="title">Creating Pages</div>
+                    </a></li>
+
+					<li><a href="#s8">
+                        <div class="icon">.</div>
+                        <div class="title">Credits</div>
+                    </a></li>
+                    <li><a href="#s9">
+                        <div class="icon">.</div>
+                        <div class="title">Help and feature requests</div>
+                    </a></li>
+
+                </ul>
+            </nav>
+        </div>
+        <main id="mainContainer">
+            <div id="header">
+                <div class="copy"></div>
+                <div class="controler">
+                    <div class="container">
+                        <div class="prev blur">&lt;</div>
+                        <div class="next blur">&gt;</div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="content">
+                <div id="s1" class="section active">
+                    <h3 class="thankYou">Thank you for purchasing Slider.</h3>
+                    <hr />
+                    <h2 class="center">A Multi-Purpose Theme For Ghost Documentation</h2>
+                    <div class="">
+
+                        <p>This documentation will guide you though the installation, configuration and customisation of this theme.</p>
+                        <p>We hope you enjoy this theme and all the features that come with it. We endeavour to create the best, so if you need advice with something, would like to make a feature request or are unhappy with our product <a href="#s9" class="anchor">let us know</a> and we will do what we can to help.</p>
+                        <p>If you like this theme why not share the love and give us a <a href="" target="_blank">good rating</a>.</p>
+                    </div>
+                </div>
+                <div id="s2" class="section">
+                    <h2 class="hide">THEME VERSION AND UPDATES</h2>
+                    <h3>1. Theme Version</h3>
+                    <ul>
+                        <li>Version number: 1.0.1</li>
+                        <li>Date of release: 19.03.2015</li>
+                    </ul>
+                    <hr />
+                    <h3>2. Change Overview</h3>
+                    <div>
+                        <ul>
+                            <li>19.03.2015 v1.0.1</li>
+                            <ul>
+                                <li>Scroll issue with some elements on a post page on iPhones</li>
+                            </ul>
+                            <li>25.02.2015 v1.0.0</li>
+                            <ul>
+                                <li>Initial realease</li>
+                            </ul>
+                        </ul>
+                    </div>
+                    <hr />
+                    <div class="">
+                        <h3>3. Update to 1.0.1 from 1.0.0</h3>
+                        <p>Before you update backup your theme. Then add and overwrite the old files shown below with the newer ones.</p>
+                        <ul>
+                            <li><b>REPLACE:</b> default.hbs</li>
+                            <li><b>REPLACE:</b> assets/js/script.js</li>
+                            <li><b>REPLACE:</b> assets/css/style.css</li>
+                            <li><b>REPLACE:</b> assets/scss/style.scss</li>
+                        </ul>
+                        <hr />
+                    </div>
+                </div>
+                <div id="s3" class="section">
+                    <h2 class="Your Theme Files"></h2>
+                    <p>This section will guide you through Slider's theme file structure so you know where everything is if you want to edit this theme.</p>
+                    <p>Once downloaded, unzip the compressed folder to see the structure of the theme folder. You'll see something like this:</p>
+			    	<img src="assets/img/sliderFilestructure.png" />
+                    <hr />
+
+
+                    <h3>1. hbs files</h3>
+                    <p>All .hbs files are placed in the root of the template folder. These include:</p>
+                    <ul>
+                        <li><b>author.hbs</b> - template showing the users profile information and posts</li>
+                        <li><b>default.hbs</b> - The main template file that wraps around other content</li>
+                        <li><b>error.hbs</b> - styled error 404 template</li>
+                        <li><b>home.hbs</b> - template for the home page content</li>
+                        <li><b>index.hbs</b> - template main page content</li>
+                        <li><b>page.hbs</b> - generic template for static pages</li>
+                        <li><b>post.hbs</b> - template post pages</li>
+                        <li><b>tag.hbs</b> - template for tag pages</li>
+                    </ul>
+                    <hr />
+
+                    <h3>2. Partial .hbs files</h3>
+                    <p>The partial .hbs files can be found in the <b>partials/</b> folder. These include:</p>
+                    <ul>
+                        <li><b>pagination.hbs</b> - pagination html for the bottom of multiple posts pages</li>
+                        <li><b>disqus.hbs</b> - disqus code for the post pages</li>
+                        <li><b>loop.hbs</b> - a template that loops though all the posts for the current page</li>
+                    </ul>
+                    <hr />
+
+                    <h3>3. CSS and files</h3>
+                    <p>The .css files are placed in the <b>assets/css</b> folder. These include:</p>
+                    <ul>
+                        <li><b>normalize.css</b> - resets the browsers styles to be cross platform constant</li>
+                        <li><b>nprogress.css</b> - loading progress bar base styles</li>
+                        <li><b>perfect-scrollbar.min.css</b> - base css for the scrollbar</li>
+                        <li><b>style.css</b> - main stylesheet file</li>
+                        <li><b>style-compressed.css</b> - A Compressed version of the main stylesheet file</li>
+                    </ul>
+                    <p>The main CSS file (style.css) contains all the main styling for this theme. The file is separated into sections shown bellow.</p>
+                    <code>
+                        /* ============================================================ */
+                        <br >/* Foundations */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Navigation */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Slider items */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Posts Styles & Page Styles */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Tag and Author page styles */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Error 404 page styles */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Scrollbar */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* NProgress - custom styling */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* Odamae - Contact form styles */
+                        <br >/* ============================================================ */
+                        <br >
+                        <br >/* ============================================================ */
+                        <br >/* General Queries */
+                        <br >/* ============================================================ */
+                    </code>
+                    <hr />
+
+                    <h3>4. SCSS and files</h3>
+                    <p>The main SCSS file can be found in the <b>assets/scss/style.scss</b> folder and if edited should override the <b>assets/css/style.css</b> file.</p>
+                    <p>This SCSS files contain some extra sections which help to make writing css quicker. The <b>Vars</b> section contains the theme's colours, widths and heights. The last comment contains SCSS mixins, and SCSS imports.</p>
+                    <code>
+                        /* ============================================================ */<br />
+                        /* Vars                                                         */<br />
+                        /* ============================================================ */<br />
+                        <br />
+                        /* ============================================================ */<br />
+                        /* mixin's, imports*/<br />
+                        /* ============================================================ */<br />
+                        <br />
+                        ~ The rest is the same as the CSS comments
+                    </code>
+                    <hr />
+
+                    <h3>5. Font and icon files</h3>
+                    <p>The font and icon files and can be found in the <b>assets/fonts</b> folder.</p>
+                    <hr />
+
+                    <h3>6. Javascript files</h3>
+                    <p>The javascript files can be found in the <b>assets/js</b> folder. Documentation for the relevant files can be found in the <a class="anchor" href="#s8">credits section</a>. The .js files in this theme are:</p>
+                    <ul>
+                        <li><b>script.js</b> - the main javascript for Slider</li>
+                        <li><b>script-compressed.js</b> - a compressed version of the main javascript file</li>
+                        <li><b>jquery.min.js</b> - javascript library</li>
+                        <li><b>jquery.fitvids.js</b> - scales and fits videos within its container</li>
+                        <li><b>jquery.history.js</b> - helps with URL history when using Ajax</li>
+                        <li><b>jquery.touchSwipe.min.js</b> - adds swipe accessability to the theme</li>
+                        <li><b>perfect-scrollbar.min.js</b> - scrollbar script</li>
+                        <li><b>nprogress.js</b> - javascript for the loading progress bar</li>
+                    </ul>
+                    <p>The main .js file (script.js) contains the main script for this theme. The file is separated into sections shown bellow.</p>
+                    <code>
+                        /* ============================================================ */
+                        <br />/* Layout Config
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Load functions when page is loaded */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Load Disqus comments */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Create mobile menu */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Get all tags */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Get all authors */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Render homepage slider */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Sliders auto scrolling system */
+                        <br />/* ============================================================ */
+                        <br />
+                        <br />/* ============================================================ */
+                        <br />/* Ajax Loading  */
+                        <br />/* ============================================================ */
+                    </code>
+                    <hr />
+                </div>
+                <div id="s4" class="section">
+                    <h2 class="hide">QUICK INSTALL</h2>
+                    <p>This section will guide you though the quick install process.</p>
+                    <hr />
+                    <h3>1. Download and Extract Files</h3>
+                    <ol>
+                        <li>Unzip the main file you've downloaded from themeforest.net</li>
+                        <li>Navigate to the <b>Theme/slider_vX.X.X</b> folder</li>
+                    </ol>
+                    <hr />
+                    <div class="hide">
+                        <h3>1. Select Version</h3>
+                        <hr />
+                    </div>
+                    <h3>2. Upload Ghost Theme</h3>
+                    <div class="indent">
+                        <h4>Ghost Pro hosted</h4>
+                            <ol>
+                                <li>Zip-up the file that you navigated to and upload using <a href="http://support.ghost.org/upload-theme-ghostpro/">these instructions</a>.</li>
+                            </ol>
+                        <h4>Self Hosted Server</h4>
+                            <ol>
+                                <li>
+                                    Copy file that you navigated to and upload to <b>content/themes</b> of your ghost hosted folder.
+                                </li>
+                                <li>Restart Ghost.</li>
+                            </ol>
+                    </div>
+                    <hr />
+                    <h3>3. Select Theme</h3>
+                    <ol>
+                        <li>
+                            Login to ghost, click on the settings options and select the theme from the 'Theme' dropdown, save settings and ENJOY!<br />
+                           <img class="scale50" src="assets/img/themeselect.png" />
+                        </li>
+                    </ol>
+
+                    <hr />
+                    <h3>4. Add Example Post and Page Content</h3>
+                    <p>We've prepackaged some example posts and pages for you to import so you can test out your new template. Below exaplains how to import the example content.</p>
+                    <p><b>NOTE: THIS PROCESS WILL WIPE ANY EXISTING DATA AND IMAGES YOUR ON YOUR GHOST INSTALLATION</b></p>
+                    <ol>
+                        <li>Login to your admin account</li>
+                        <li>Navigate to settings</li>
+                        <li>In the left column click on labs</li>
+                        <li>On the labs page next to the import title click the 'choose import' button</li>
+                        <li>locate the file to import at <b>Example Content/sliders-theme.ghost.XXX-XX-XX.json</b></li>
+                        <li>Click import</li>
+                        <li>Now add the images by moving the folder <b>Example Content/images/2015</b> to your ghost <b>content/images</b> folder</li>
+
+                    </ol>
+                    <hr />
+                </div>
+                <div id="s5" class="section">
+
+                    <h2 class="hide">PERSONALISE YOUR THEME</h2>
+                    <p>The instructions bellow will help you to personalise your template to suit your needs.</p>
+                    <hr />
+
+                    <h3>1. Enable or disable auto Scrolling</h3>
+                    <p>To enable or disable auto scrolling navigate to and open the <b>assets/js/script.js</b> file and edit the variable below.</p>
+                    <code>
+                        //================================<br />
+                        //Enable or disable auto Scrolling<br />
+                        //================================<br />
+                        //1.true = enable auto scrolling<br />
+                        //1.false = disable auto scrolling<br />
+                        <b>var autoScroller= <span class="bold">true</span>;</b>
+                    </code>
+                    <hr />
+                    <h3>2. Enable or disable home page title animations</h3>
+                    <p>To enable or disable home page title animations navigate to and open the <b>assets/js/script.js</b> file and edit the variable below.</p>
+                    <code>
+                        //==================================<br />
+                        //Enable or disable title animations<br />
+                        //==================================<br />
+                        //1.true = enable title animations<br />
+                        //1.false = disable title animations<br />
+                        <b>var animateTitles= <span class="bold">true</span>;</b>
+                    </code>
+                    <hr />
+                    <h3>3. Set the default homepage post content reveal Transition</h3>
+                    <p>To set default post content reveal transition navigate to and open the <b>assets/js/script.js</b> file and edit the variable below.</p>
+                    <code>
+                            //=========================================<br />
+                            //set defult post content reveal transition<br />
+                            //=========================================<br />
+                            // 1. same as alignment direction = "auto"<br />
+                            // 2. from bottom  = "bottom"<br />
+                            // 3. from left = "left"<br />
+                            // 4. from right = "right"<br />
+                            // 5. nothing = ""<br />
+                            // 6. fade in = "fade"<br />
+                            <b>var defaultContentTransition = <span class="bold">"bottom"</span>;</b>
+                    </code>
+                    <hr />
+                    <h3>4. Set the default homepage post content alignment</h3>
+                    <p>To set the default homepage post content alignment navigate to and open the <b>assets/js/script.js</b> file and edit the variable below.</p>
+                    <code>
+                        //==================================<br />
+                        // set default post content alignment<br />
+                        //==================================<br />
+                        // 1. alternate left and right = "alternate"<br />
+                        // 2. align left  = "left"<br />
+                        // 3. align right  = "right"<br />
+                        // 4. center  = "center"<br />
+                        // 5. bottom left  = "bottomleft"<br />
+                        <b>var defaultContentAlignment= <span class="bold">"alternate"</span>;</b>
+                    </code>
+                    <hr />
+
+                    <h3>5. Default option to hide or show the "read more" button</h3>
+                    <p>To hide or show the "read more" button navigate to and open the <b>assets/js/script.js</b> file and edit the variable below.</p>
+                    <code>
+                        //==============================================<br />
+                        //default option to hide or not hide post button<br />
+                        //==============================================<br />
+                        // 1. Show button = false<br />
+                        // 2. Hide Button  = true<br />
+                        <b>var defaultHideButton= <span class="bold">false</span>;</b>
+                    </code>
+                    <hr />
+                    <h3>6. Default option to hide or show the excerpt</h3>
+                    <p>To hide or show the excerpt navigate to and open the <b>assets/js/script.js</b> file and edit the variable below.</p>
+                    <code>
+                        //===============================================<br />
+                        //default option to hide or show the post excerpt<br />
+                        //===============================================<br />
+                        // 1. Show excerpt = false<br />
+                        // 2. Hide excerpt  = true<br />
+                        <b>var defaultHideExcerpt= <span class="bold">false</span>;</b>
+
+                    </code>
+                    <hr />
+
+                    <h3>7. Edit welcome page content</h3>
+                    <p>You can personalise your homepage welcome page by editing the details described below.</p>
+                    <div class="indent">
+                        <h4>Add your title and description</h4>
+                        <p>login to ghost admin, click on settings and navigate to general settings. Enter your title and description into the fields provided and save.</p>
+                        <img  class="scale50"  src="assets/img/generalsettings1.png" />
+
+                        <h4>1. Add your logo and background image</h4>
+                        <p>login to ghost admin, click on settings and navigate to general settings. Add your logo and background image in the fields provided and save.</p>
+                        <img  class="scale50" src="assets/img/generalsettings2.png" />
+                    </div>
+                    <hr />
+
+                    <h3>8. Adding links to the navigation bar</h3>
+                    <p>If you wish to add links to the navigation bar you can do so by editing the <b>default.hbs</b> file</p>
+                    <p>To add a new menu item find the tag <b>&ltdiv class="navLinks"></b> Then copy and paste the <b>bold</b> code below making sure you change the highlighted code to the correct URL and title.</p>
+
+                    <code>
+                        <br />&ltdiv class="navLinks">
+                        <br />&nbsp;&nbsp;&ltul>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&ltli>&lta href="/" class="active ajaxPageLink">Home&lt/a>&lt/li>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&ltli>&lta href="/alltags" class="ajaxPageLink tagList">tag list&lt/a>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ltul>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt/ul>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&lt/li>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&ltli>&lta href="/about" class="ajaxPageLink">About&lt/a>&lt/li>
+                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&ltli>&lta href="/contact" class="ajaxPageLink">Contact&lt/a>&lt/li>
+                        <br /><b>&nbsp;&nbsp;&nbsp;&nbsp;&ltli>&lta href="<span class="bold">*my/url/goes/here*</span>" class="ajaxPageLink"><span class="bold">*TITLE GOES HERE*</span>&lt/a>&lt/li></b>
+                        <br />&nbsp;&nbsp;&lt/ul>
+                        <br />&lt/div>
+                    </code>
+                    <hr />
+
+                    <h3>9. Install Disqus Comments</h3>
+                    <p>By Default, this theme supports Disqus comments <a herf="http://disqus.com">www.disqus.com</a>. If you are new to Disqus please see the <a href="http://help.disqus.com/customer/portal/articles/466182-quick-start-guide">QuickStart Guide</a>.</p>
+                    <p>Please replace <b>*YOUR_DISQUS_SHORTNAME*</b> with your Disqus shortname in the file: <b>partials/disqus.hbs</b>.</p>
+
+                    <code>
+                    <!-- REQUIRED: replace *YOUR_DISQUS_SHORTNAME* with your own shortname -->
+                    <br /><b>&ltsection class="postContent" data-username="</b><b class="bold">*YOUR_DISQUS_SHORTNAME*</b><b>" data-ghostid="ghost-{{id}}" id="disqus_thread">&lt/section></b>
+                    <br />&ltnoscript>Please enable JavaScript to view the &lta href="http://disqus.com/?ref_noscript">comments powered by Disqus.&lt/a>&lt/noscript>
+                    </code>
+                    <hr />
+
+                    <h3>10. Install the contact form</h3>
+
+                    <p>This template is using google web fonts. In order to customise to your own font follow the steps bellow.</p>
+                    <ol>
+                        <li>Create an account at <a href="https://odamae.io/">https://odamae.io/</a></li>
+                        <li>Click on "Get the code" button (see image below)</li>
+                        <li>Copy the code (see image below)</li>
+                        <li>Paste the code into your post or page</li>
+                        <li>Paste <b>&ltinput type="hidden" id="odamae-use-css" value="false"></b> above the code you previously pasted. This will allow the Slider theme to use its own css styles.</li>
+                    </ol>
+                    <img src="assets/img/contact.png" class="scale50" />
+                    <hr />
+
+                    <h3>11. Change font</h3>
+                    <p>This template is using google web fonts. In order to customise to your own font follow the steps bellow.</p>
+                    <ol>
+                        <li>Replace the google web font url found in at top of the <b>default.hbs</b> file within the <head> tag with your new code from google fonts.</li>
+                        <li>If you are using SCSS you can simply edit the values <b>$bodyFont</b> and <b>$titleFont</b> at the top of the <b>assets/scss/styles.scss</b> file as required. Otherwise change the respective font families in the <b>assets/css/style.css</b> file instead. </li>
+                    </ol>
+                    <hr />
+
+                    <h3>12. Changing Theme Colours</h3>
+                    <p>If you are using SCSS personalising your theme to your preferred colour is a breeze. Simply open up <b>assets/scss/styles.scss</b> and edit the colour variables at the top of the file.</p>
+                    <code>
+                    <b>
+                        $primary: <span class="bold">#FFB500</span>;
+                        <br />$secondary: <span class="bold">#262F33</span>;
+                        <br />$third: <span class="bold">#ededed</span>;
+                        <br />$base: <span class="bold">#fff</span>;
+                        <br />$dark: <span class="bold">#4c5356</span>;
+                        <br />$navBackground: <span class="bold">rgba(38, 47, 51, 0.98)</span>;
+                        <br />$navStartColor: <span class="bold">#c9c9c9</span>;
+                        <br />$articleBG: <span class="bold">#ededed</span>;
+                        <br />$articleText: <span class="bold">#484848</span>;
+                        <br />$articleHeader: <span class="bold">#222</span>;
+                        <br />$secondaryOpacity <span class="bold">rgba(38, 47, 51, 0.1)</span>;
+                        <br />$primaryOpacity: <span class="bold">rgba(255, 174, 0, 0.5)</span>;
+                    </b>
+                    </code>
+                    <p>For those that are new to SCSS you can read up about it on the <a href="http://en.wikipedia.org/wiki/Sass_(stylesheet_language)">SCSS wiki</a> or the <a href="http://sass-lang.com">SASS website</a>. Once you have edited your SCSS file you'll need to convert it to CSS.</p>
+                    <p>An easy way to automatically convert SCSS files back to CSS is to run an app called <a href="http://mhs.github.io/scout-app/">Scout</a> in the background as you are editing.
+                    <ol>
+                        <li>First you want to create a new project, click on the ‘+’ button in the bottom left corner</li>
+                        <li>Next for the input folder under ’stylesheet Directories’ find the the assets/SCSS folder in the Slider theme folder</li>
+                        <li>For the output choose the assets/CSS folder</li>
+                        <li>Click the play button in the left panel.</li>
+                    </ol>
+                    <p>Now every time you edit the SCSS file it should automatically update the CSS file for you.</p>
+                    <hr />
+                    <h3>13. remove the boxed boarder</h3>
+                    <p>Not a fan of the boxed boarder look? If you are using SCSS simply open up <b>assets/scss/styles.scss</b> and edit the variable below.</p>
+                    <code>
+                        $boxedThickness:<span class="bold">15px</span>;
+                        <br />$boxedThicknessBottom:<span class="bold">35px</span>;
+                    </code>
+                    <hr />
+
+                    <h3>14. Personalise the author page</h3>
+                    <p>To personalise the author page follow the following steps.</p>
+                    <ol>
+                        <li>Log into your Ghost admin page</li>
+                        <li>Click the "settings" icon on the top menu bar</li>
+                        <li>Click on the "Users" link in the left column</li>
+                        <li>Select a user</li>
+                    </ol>
+                    <p>To add a cover image click on the change cover button and drag an image in the empty box. Click save to confirm the change.</p>
+                    <img class="scale50" src="assets/img/authorCover.png" />
+                    <p>To add a cover image click on the change cover button and drag an image in the empty box. Click save to confirm the change.</p>
+                    <img class="scale50" src="assets/img/authorDetails.png" />
+                    <hr />
+
+                    <h3>15. Personalise the tag pages</h3>
+                    <p>To personalise the tag pages follow the following steps.</p>
+
+                    <ol>
+                        <li>Log into your Ghost admin page</li>
+                        <li>Click the "settings" icon on the top menu bar</li>
+                        <li>Click on the "Tags" link in the left column</li>
+                        <li>Select a tag</li>
+                        <li>Add a cover image and change the text in the right hand column.</li>
+                        <li>To save your changes click anywhere other than the right column or press the X in the to right corner.</li>
+                    </ol>
+                    <img class="scale50" src="assets/img/tagDetails.png" />
+
+                    <hr />
+
+                    <h3>16. Customise your Highlight.js Syntax highlighter</h3>
+                    <p><a href="https://highlightjs.org/">Highlight.js</a> is a syntax highlighter that works with many languages and comes with many themes.</p>
+                        <div class="indent">
+                            <h4>Install extra languages</h4>
+                            <p>Highlighter.js comes packed with 22 of the most common languages however if you want to use its 112 other languages you'll need to download a
+                            <a href="https://highlightjs.org/download/">custom package</a> and change the refrence at the bottom of the <b>default.hbs</b> file.</p>
+                            <h4>Custom theme</h4>
+                            <p>Highlighter.js provides 49 syntax styles for you to choose from. <a href="https://github.com/isagalaev/highlight.js/tree/master/src/styles">Here is the full list</a>.
+                                To change your syntax to another style find the name of the theme <a href="https://github.com/isagalaev/highlight.js/tree/master/src/styles">here</a> and replace the css refrence at the bottom of the <b>default.hbs</b> file.  An example is shown below.
+                            </p>
+                            <code>
+                                &ltlink rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/<b class="bold">*themeName*</b>.min.css">
+                            </code>
+                        </div>
+                    <hr />
+                    <h3>17. Tag background colour</h3>
+                    <p>If you would like to set preset backgrounds for each tag post you can do so by changing the variable below. Change the left side to match or tag name and the right side to your desired colour in hex or rgb. The file can be found in the <b>assets/js/script.js</b> folder.</p>
+                    <code>
+                        //Preset colours for tagged post backgrounds
+                        <br />//===============================================
+                        <br />//Enter the name of the tag on the left and the colour on the right
+                        <br />var taggedColors = {"tag-audio":"red","tag-video":"orange","<b class="bold">tag-name</b>":"<b class="bold">myColor</b>"};
+                    </code>
+                    <hr />
+                    <h3>17. Mobile Menu always on</h3>
+                    <p>To make the main navigation show the mobile menu all the time instead of only when the screen is small open up the <b>default.hbs</b> file and place <b class="bold">navMobile</b> in between the quotes of the body class tag.</p>
+                    <hr />
+                </div>
+                <!--need to finish writing posts section-->
+                <div id="s6" class="section">
+                    <h2 class="hide">6. Writing Posts</h2>
+				    <p>Writing posts with <a href="http://support.ghost.org/markdown-guide/">Ghost's Markdown</a> is easy. Slider comes packaged with a few additional extras. This section will guide you through these features.</p>
+                    <hr />
+
+                    <h3>1. Slider hero effects and settings</h3>
+                    <p>With Slider you have the ability to effect the hero title for every post. You can change the animate transition, the alignment, background image or colour, choose to have media content and even make the text black or white</p>
+                    <img class="scale50" src="assets/img/titleEffects.gif" />
+                    <div class="indent">
+                        <h4>Title transitions</h4>
+                        <p>To change the transition of an individual post title, add the code to the top of your post and replace <span class="bold">"*myTransition*"</span> with either: "auto", "fade", "left", "right", "bottom" or ""</p>
+                        <code>
+                            <b>&ltdiv data-transition=<span class="bold">"*myTransition*"</span>>&lt/div></b>
+                        </code>
+                        <h4>Title alignment</h4>
+                        <p>To change the alignment of an individual post title, add the code to the top of your post and replace <span class="bold">"*myAlignment*"</span> with either: "alternate" "left", "right", "center" or "bottomleft"</p>
+                        <code>
+                            <b>&ltdiv data-align=<span class="bold">"*myAlignment*"</span>>&lt/div></b>
+                        </code>
+                        <h4>Title color - negative / positive</h4>
+                        <p>To change the title color of a single post to be negative or positive, add the code to the top of your post and replace <span class="bold">"*boolean*"</span> with either: "true" or "false"</p>
+                        <code>
+                            <b>&ltdiv data-negative=<span class="bold">"*boolean*"</span>>&lt/div></b>
+                        </code>
+                        <h4>Hide read more button and Excerpt text</h4>
+                        <p>To hide or show the button or excerpt for a single post, add the code to the top of your post and replace <span class="bold">"*boolean*"</span> with either "true" or "false"</p>
+                        <code>
+                            <b>&ltdiv data-button=<span class="bold">"*boolean*"</span> data-excerpt=<span class="bold">"*boolean*"</span>>&lt/div></b>
+                        </code>
+                        <h4>Background colour</h4>
+                        <p>To change the background color of a single post, add the code to the top of your post and replace <span class="bold">"*myColor*"</span> with any hex or rgb value</p>
+                        <code>
+                            <b>&ltdiv data-color=<span class="bold">"*myColor*"</span>>&lt/div></b>
+                        </code>
+                        <h4>Background image</h4>
+                        <p>To add a background image to your post follow the instructions below.</p>
+                        <ol>
+                            <li>In your markdown post, click on the gear icon on the bottom right</li>
+                            <li>Drag your image to the top grey box. See picture for details</li>
+                        </ol>
+                        <img class="scale50" src="assets/img/coverImage.jpg" />
+                        <h4>Embed media content</h4>
+                        <p>Place embeded media content into the hero section by following the guide below.</p>
+                        <div class="indent">
+                            <p>For embeded content such as youtube, vimeo or soundcloud paste the code into your markdown and add <b class="bold">class="media"</b> anywhere within the iframe tag.</p>
+                            <code>
+                                &lt;iframe <b class="bold">class="media"</b> width="560" height="315" src="//www.youtube.com/embed/aeLTx-ZhlFQ"&gt;&lt;/iframe&gt;
+                            </code>
+                            <p>To add an image paste the code into your markdown add an image as you normally would and place <b class="bold">#media</b> at the end of the URL.</p>
+                            <code>![alt](http://www.domain.com/myimage.jpg<b class="bold">#media</b>)</code>
+                            <p>You can place anything in the hero section. Just wrap it in a div like so:</p>
+                            <code>
+                                <b class="bold">&ltdiv class="media"></b>
+                                *embed iframes, text, images or anything you want in here*
+                                <b class="bold">&ltdiv></b>
+                            </code>
+                        </div>
+                        <h4>Combo setup</h4>
+                        <p>To make things easier you can join these data atributes together. Join together as many or as little as you need in the order you desire like so.</p>
+                        <code>
+                            &ltdiv data-translate="fade" data-negative="true">&lt/div><br />
+                            &ltdiv data-align="center" data-button="false" data-exerpt="false" data-translate="fade">&lt/div>
+                        </code>
+                    </div>
+
+
+                    <hr />
+                    <h3>2. Add an Author list to any page or post</h3>
+                    <p>With Slider you can easilycreate a full list of authors on any page or post you like. Enter this code in your markdown like so.</p>
+                    <code>
+                        <b>&ltdiv class=<span class="bold">"makeAuthorList"</span>>&lt/div></b>
+                    </code>
+                    <hr />
+                    <h3>3. Add a Tag list to any page or post</h3>
+                    <p>With Slider you can easily create a full list of tags on any page or post you like. Enter this code in your markdown like so.</p>
+                    <code>
+                        <b>&ltdiv class="<span class="bold">makeTagList</span>">&lt/div></b>
+                    </code>
+                    <hr />
+
+
+                    <h3>4. Add Google Maps to any page or post</h3>
+                    <p>You can easily add a map to any page or post by simply injecting the code below in to your markdown. To have google maps point to a specific location change the latitude and longitude values highlighted in <b class="bold">orange</b> to the location you desire.</p>
+                    <code>
+                    <br /><b>&ltdiv id="gmaps" data-lat="<span class="bold">51.508742</span>" data-lng="<span class="bold">-0.120850</span>">&lt/div></b>
+                    </code>
+
+                    <hr />
+
+                    <h3>5. Variable image sizes</h3>
+                    <p>With Slider you can choose to emthise images in your posts or pages by following the instructions below</p>
+                    <img class="scale50" src="assets/img/imageSizes.gif" />
+                    <ol>
+                        <li>
+                            At the top of the page / post add the <a href="http://support.ghost.org/markdown-guide/">image Markdown</a> as usual like so:
+                            <code>![alt](http://)</code>
+                        </li>
+                        <li>
+                            Add your image by dragging it over the 'drag drop' section or entering the image's url
+                            <code>![alt](http://www.domain.com/myimage.jpg)</code>
+                        </li>
+                        <li>
+                            Add either <b class="bold">#large</b> or <b class="bold">#xlarge</b> hash to the end of the url like so:
+                            <code>![alt](http://www.domain.com/myimage.jpg<b class="bold">#large</b>)</code>
+                            <code>![alt](http://www.domain.com/myimage.jpg<b class="bold">#xlarge</b>)</code>
+                        </li>
+                    </ol>
+                    <hr />
+
+
+                    <h3>6. Embedding media into a post or page</h3>
+                    <p>Embedding media from other sites is super easy, just grab the embed code and paste it where you would like it to appear in the post. Bellow show some example embedded media code to try out.</p>
+                    <div class="indent">
+                        <h4>Soundcloud</h4>
+                        <p>Soundcloud is a great free music service. Copy and paste this code to give it a try.</p>
+                        <code>
+                        &lt;iframe height="166" src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/104708200"&gt;&lt;/iframe&gt;
+                        </code>
+                        <h4>Youtube</h4>
+                        <p>Youtube is a great video service. Copy and paste this code to give it a try.</p>
+                        <code>
+                        &lt;iframe width="560" height="315" src="//www.youtube.com/embed/aeLTx-ZhlFQ"&gt;&lt;/iframe&gt;
+                        </code>
+                        <h4>Vimeo</h4>
+                        <p>Vimeo is another great video service. Copy and paste this code to give it a try.</p>
+                        <code>
+                        &lt;iframe src="//player.vimeo.com/video/77270043" width="500" height="281"&gt;&lt;/iframe&gt;
+                        </code>
+                    </div>
+                    <hr />
+                    <h3>7. Using the Highlight.js syntax highlighter</h3>
+                    <p>Using the syntax highlighter in Slider is dead simple. Simply prefix your code with the markdown tag <b>```</b> and suffix it with <b>```</b>. If you want to force a language just do for example <b>```html</b> instead.</p>
+
+                    <code>
+
+                    <div class="bold">```</div>
+                    &lt;!DOCTYPE html><br />
+                    &lt;html><br />
+                    &nbsp;&nbsp; &lt;head><br />
+                    &nbsp;&nbsp;&nbsp;&nbsp; &lt;style><br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; body {<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background: #d0e4fe;<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp; &lt;/style><br />
+                    &nbsp;&nbsp; &lt;/head><br />
+                    &nbsp;&nbsp; &lt;body><br />
+                    &nbsp;&nbsp;&nbsp;&nbsp; &lt;h1>Hello World!&lt;/h1><br />
+                    &nbsp;&nbsp; &lt;/body><br />
+                    &lt;/html><br />
+                    <div class="bold">```</div>
+                    <br />
+                    <div class="bold">```javascript</div>
+                    &nbsp;&nbsp; document.getElementById("demo").innerHTML = "Hello Moon!";<br />
+                    <div class="bold">```</div>
+
+                    </code>
+                    <p>For more details on customising Highlight.js see the <a href="#s5" class="anchor">Personalise Your Theme</a> section.</p>
+                </div>
+                <div id="s7" class="section">
+                    <h2 class="hide">Creating Pages</h2>
+                    <h3>1. Creating a page with the standard page.hbs template</h3>
+                    <p>If you would like to create a simple static page you can do so by following these simple steps:</p>
+                    <ol>
+                        <li>Create a post</li>
+                        <li>Click on the gear icon</li>
+                        <li>Check static page</li>
+                        <li>Change url if desired</li>
+                        <li>Publish post</li>
+                    </ol>
+                    <img class="scale50" src="assets/img/staticpost.png" />
+
+
+                    <hr/>
+                    <h3>2. Create page with your own custom template</h3>
+                    <p>For information on creating custom static pages see this <a href="http://support.ghost.org/create-custom-page-template/">post on Ghost.io</a></p>
+                    <hr/>
+                    <h3>3. Creating a tag list on a page</h3>
+                    <p>With Slider you can easily create a full list of tags on any page or post you like. Enter this code in your markdown like so.</p>
+                    <code>
+                        &lt;div class="<span class="bold">makeTagList</span>">&lt;/div>
+                    </code>
+                    <br /><br />
+                    <p>This will create something similar to the image below.</p>
+                    <img class="scale50"  src="assets/img/authorList.png" />
+                    <hr/>
+                    <h3>4. Creating an Author list on a page</h3>
+                    <p>With Slider you can easily create a full list of tags on any page or post you like. Enter this code in your markdown like so.</p>
+                    <code>
+                        &lt;div class="<span class="bold">makeAuthorList</span>">&lt;/div>
+                    </code>
+                    <br /><br />
+                    <p>This will create something similar to the image below.</p>
+                    <img  class="scale50" src="assets/img/tagList.png" />
+
+                </div>
+                <div id="s8" class="section">
+                    <h2 class="hide">CREDITS</h2>
+                    <h3>1. Javascript</h3>
+                    <p>Slider uses several great scripts to enhance this site. Thanks to all these developers:</p>
+                    <ul class="">
+                        <li><a href="https://github.com/jquery/jquery" target="_blank">jQuery</a></li>
+                        <li><a href="https://github.com/davatron5000/FitVids.js" target="_blank">FitVids.js</a></li>
+                        <li><a href="https://github.com/browserstate/history.js" target="_blank">jQuery history</a></li>
+                        <li><a href="https://highlightjs.org/" target="_blank">highlight.js</a></li>
+                        <li><a href="http://labs.rampinteractive.co.uk/touchSwipe/demos/" target="_blank">touchSwipe</a></li>
+                        <li><a href="http://noraesae.github.io/perfect-scrollbar/" target="_blank">Perfect Scrollbar</a></li>
+                        <li><a href="http://ricostacruz.com/nprogress/" target="_blank">NProgress.js</a></li>
+                    </ul>
+                    <hr />
+                    <h3>2. Stylesheets</h3>
+                    <p>Slider uses this great stylesheet to enhance this theme. Thanks to this developer:</p>
+                    <ul class="">
+                        <li><a href="https://github.com/necolas/normalize.css" target="_blank">normalize.css</a></li>
+                    </ul>
+                    <hr />
+                    <h3>3. Images</h3>
+                    <p>Images shown on the live demo are from <a href="http://unsplash.com/" target="_blank">www.unsplash.com</a>. As a precaution we have not included the images shown on the live demo in this download, however feel free to download their great selection of public domain photos.</p>
+                    <hr />
+                    <h3>4. Fonts and Icons</h3>
+                    <ul>
+                        <li>Google Webfonts - <a href="https://www.google.com/fonts" target="_blank">https://www.google.com/fonts</a></li>
+                        <li>Font Awesome - <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">http://fortawesome.github.io/Font-Awesome/</a></li>
+                    </ul>
+                </div>
+                <div id="s9" class="section">
+                    <h2 class="hide">HELP AND FEATURE REQUESTS</h2>
+                    <h3>1. Getting Help</h3>
+                    <p>If you have any issues or questions that this document does not cover we'll be happy to help via the <a href="http://themeforest.net/user/7immer"  target="_blank">profile page</a>.</p>
+                    <hr />
+                    <h3>2. Feature Requests</h3>
+                    <p>If you would like to make a feature request please use the form bellow or via <a href="http://www.tricider.com/brainstorming/2jnbLkLgo4N" target="_blank">this link</a>. To increase your chances of development please included a reason to why you think your request should be added to this theme.</p>
+                    <p><b>Please check if your request has already been added to avoid duplicates.</b></p>
+                    <p><b>Please note we are limited to the <a href="https://ghost.org/">Ghost framework</a> so not all requests can be implemented.</b></p>
+                    <iframe id="tricider" width='600' height='500' src='http://www.tricider.com/embed/?show=2jnbLkLgo4N' frameborder='0' scrolling='no' marginheight='10' marginwidth='0'></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
